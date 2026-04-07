@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TECHHARSH - Premium Consultation Booking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0d1b2a 100%);
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); }
+            50% { box-shadow: 0 0 60px rgba(59, 130, 246, 0.6); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideLeft {
+            from { opacity: 0; transform: translateX(-60px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideRight {
+            from { opacity: 0; transform: translateX(60px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: slideDown 0.8s ease;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .logo-box {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.4);
+        }
+
+        .company-name {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .company-name h1 {
+            font-size: 20px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+        }
+
+        .company-name p {
+            font-size: 10px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .author-badge {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideRight 0.8s ease;
+        }
+
+        .avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 12px;
+            color: white;
+        }
+
+        .author-info p {
+            margin: 0;
+            font-size: 11px;
+            color: #cbd5e1;
+        }
+
+        .author-info strong {
+            display: block;
+            color: #3b82f6;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 60px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: slideDown 1s ease 0.2s both;
+        }
+
+        .hero h2 {
+            font-size: 54px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .accent {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto auto auto;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: zoomIn 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-15px);
+            box-shadow: 0 30px 80px rgba(59, 130, 246, 0.3);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-large {
+            grid-column: 2;
+            grid-row: 1 / 3;
+            animation: slideLeft 0.8s ease 0.2s both;
+        }
+
+        .card-top-left {
+            grid-column: 1;
+            grid-row: 1;
+            animation: slideLeft 0.8s ease 0.1s both;
+        }
+
+        .card-top-right {
+            grid-column: 3;
+            grid-row: 1;
+            animation: slideRight 0.8s ease 0.1s both;
+        }
+
+        .card-middle-left {
+            grid-column: 1;
+            grid-row: 2;
+            animation: slideLeft 0.8s ease 0.3s both;
+        }
+
+        .card-middle-right {
+            grid-column: 3;
+            grid-row: 2;
+            animation: slideRight 0.8s ease 0.3s both;
+        }
+
+        .card-bottom {
+            grid-column: 1 / 4;
+            grid-row: 3;
+            animation: slideUp 0.8s ease 0.4s both;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-item {
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            animation: slideLeft 0.6s ease;
+        }
+
+        .service-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .service-label {
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .service-value {
+            font-size: 16px;
+            font-weight: 800;
+            color: #3b82f6;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+            margin: 15px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 15px;
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 900;
+            color: #3b82f6;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-card {
+            grid-column: 1 / 4;
+            grid-row: 4;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-full {
+            grid-column: 1 / 3;
+        }
+
+        .form-group {
+            position: relative;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            font-size: 14px;
+            color: #e2e8f0;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+            transform: translateY(-3px);
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        .dates-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            grid-column: 1 / 3;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .date-btn {
+            aspect-ratio: 1;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            background: rgba(15, 23, 42, 0.8);
+            color: #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .date-btn:hover:not(.disabled) {
+            border-color: #3b82f6;
+            transform: scale(1.2) rotate(5deg);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .date-btn.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-color: #3b82f6;
+            transform: scale(1.2) rotate(5deg);
+            color: white;
+            font-weight: 900;
+        }
+
+        .date-btn.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .times-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            grid-column: 1 / 3;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .time-btn {
+            padding: 14px;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            background: rgba(15, 23, 42, 0.8);
+            color: #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .time-btn:hover {
+            border-color: #3b82f6;
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
+        }
+
+        .time-btn.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-color: #3b82f6;
+            color: white;
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.5);
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            grid-column: 1 / 3;
+            margin-top: 10px;
+            animation: slideUp 0.8s ease;
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #3b82f6;
+            border: 2px solid #3b82f6;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .whatsapp-btn {
+            grid-column: 1 / 3;
+            background: linear-gradient(135deg, #25d366 0%, #20ba58 100%);
+            color: white;
+            box-shadow: 0 10px 40px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(37, 211, 102, 0.6);
+        }
+
+        .success-msg {
+            display: none;
+            grid-column: 1 / 3;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 18px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 14px;
+            border: 1px solid rgba(16, 185, 129, 0.5);
+            animation: slideDown 0.5s ease;
+        }
+
+        .success-msg.show {
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-layout {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto auto auto;
+            }
+
+            .card-large {
+                grid-column: 1 / 3;
+                grid-row: 1;
+            }
+
+            .card-top-left {
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            .card-top-right {
+                grid-column: 2;
+                grid-row: 2;
+            }
+
+            .card-middle-left {
+                grid-column: 1;
+                grid-row: 3;
+            }
+
+            .card-middle-right {
+                grid-column: 2;
+                grid-row: 3;
+            }
+
+            .card-bottom {
+                grid-column: 1 / 3;
+                grid-row: 4;
+            }
+
+            .form-card {
+                grid-column: 1 / 3;
+                grid-row: 5;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-full {
+                grid-column: 1;
+            }
+
+            .dates-grid {
+                grid-column: 1;
+            }
+
+            .times-grid {
+                grid-column: 1;
+            }
+
+            .action-buttons {
+                grid-column: 1;
+            }
+
+            .whatsapp-btn {
+                grid-column: 1;
+            }
+
+            .success-msg {
+                grid-column: 1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .hero h2 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .main-content {
+                padding: 40px 20px;
+            }
+
+            .grid-layout {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+
+            .card {
+                grid-column: 1 !important;
+                grid-row: auto !important;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dates-grid {
+                grid-template-columns: repeat(7, 1fr);
+            }
+
+            .times-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="header-content">
+                <div class="logo-wrapper">
+                    <div class="logo-box">T</div>
+                    <div class="company-name">
+                        <h1>TECHHARSH</h1>
+                        <p>Digital Marketing</p>
+                    </div>
+                </div>
+                <div class="author-badge">
+                    <div class="avatar">HV</div>
+                    <div class="author-info">
+                        <p>Created by</p>
+                        <strong>Harsh Vardhan</strong>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="hero">
+                <h2>Book Your <span class="accent">Consultation</span></h2>
+                <p>Premium Digital Marketing Strategy • Expert Guidance • Growth Acceleration</p>
+            </div>
+
+            <div class="grid-layout">
+                <!-- Service Details -->
+                <div class="card card-top-left">
+                    <h3>Duration</h3>
+                    <div class="service-item">
+                        <div class="service-label">Session Length</div>
+                        <div class="service-value">1 Hour</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="service-item">
+                        <div class="service-label">Format</div>
+                        <div class="service-value">1-on-1</div>
+                    </div>
+                </div>
+
+                <!-- Investment -->
+                <div class="card card-top-right">
+                    <h3>Investment</h3>
+                    <div class="service-item">
+                        <div class="service-label">Price</div>
+                        <div class="service-value">₹1,000</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="service-item">
+                        <div class="service-label">Availability</div>
+                        <div class="service-value">5/week</div>
+                    </div>
+                </div>
+
+                <!-- Main CTA Card -->
+                <div class="card card-large">
+                    <h3>What's Included</h3>
+                    <div class="stats-grid">
+                        <div class="stat">
+                            <div class="stat-number">5+</div>
+                            <div class="stat-label">Topics</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Custom</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">24h</div>
+                            <div class="stat-label">Follow-up</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">∞</div>
+                            <div class="stat-label">Support</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Services -->
+                <div class="card card-middle-left">
+                    <h3>Services</h3>
+                    <div class="service-item">
+                        <div class="service-label">Specialization</div>
+                        <div class="service-value">Digital Marketing</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="service-item">
+                        <div class="service-label">Coverage</div>
+                        <div class="service-value">All Aspects</div>
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div class="card card-middle-right">
+                    <h3>Expertise</h3>
+                    <div class="service-item">
+                        <div class="service-label">Focus Areas</div>
+                        <div class="service-value">Strategy</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="service-item">
+                        <div class="service-label">Level</div>
+                        <div class="service-value">Professional</div>
+                    </div>
+                </div>
+
+                <!-- Booking Section -->
+                <div class="card card-bottom form-card">
+                    <h3>Complete Your Booking</h3>
+                    
+                    <div class="success-msg" id="successMsg">
+                        ✓ Booking request sent! Check your email for confirmation.
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group form-full">
+                            <label>Full Name *</label>
+                            <input type="text" id="fullName" placeholder="Your name">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="email" placeholder="your@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX">
+                        </div>
+
+                        <div class="form-group form-full">
+                            <label>Select Date *</label>
+                            <div class="dates-grid" id="datesGrid"></div>
+                        </div>
+
+                        <div class="form-group form-full">
+                            <label>Select Time *</label>
+                            <div class="times-grid" id="timesGrid">
+                                <button class="time-btn" onclick="selectTime(this, '09:00 AM')">09:00 AM</button>
+                                <button class="time-btn" onclick="selectTime(this, '10:00 AM')">10:00 AM</button>
+                                <button class="time-btn" onclick="selectTime(this, '11:00 AM')">11:00 AM</button>
+                                <button class="time-btn" onclick="selectTime(this, '02:00 PM')">02:00 PM</button>
+                                <button class="time-btn" onclick="selectTime(this, '03:00 PM')">03:00 PM</button>
+                                <button class="time-btn" onclick="selectTime(this, '04:00 PM')">04:00 PM</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-full">
+                            <label>Topic (Optional)</label>
+                            <input type="text" id="topic" placeholder="What would you like to discuss?">
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="submitBooking()">Book Now</button>
+                            <button class="btn btn-secondary" onclick="resetForm()">Clear</button>
+                        </div>
+
+                        <a href="https://wa.me/6375841190?text=Hi%20Harsh%2C%20I%20want%20to%20book%20a%20consultation%20with%20TECHHARSH." target="_blank" style="text-decoration: none; display: contents;">
+                            <button class="btn whatsapp-btn">WhatsApp Book</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedDate = null;
+        let selectedTime = null;
+
+        function generateDates() {
+            const grid = document.getElementById('datesGrid');
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = today.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            let html = '';
+            for (let i = 0; i < firstDay; i++) {
+                html += '<button class="date-btn disabled"></button>';
+            }
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const dateStr = date.toLocaleDateString();
+                const isDisabled = date < today ? 'disabled' : '';
+                html += `<button class="date-btn ${isDisabled}" onclick="selectDate(this, '${dateStr}')">${day}</button>`;
+            }
+            grid.innerHTML = html;
+        }
+
+        function selectDate(btn, dateStr) {
+            if (btn.classList.contains('disabled')) return;
+            document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedDate = dateStr;
+        }
+
+        function selectTime(btn, time) {
+            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedTime = time;
+        }
+
+        function submitBooking() {
+            const name = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const topic = document.getElementById('topic').value.trim();
+
+            if (!name || !email) {
+                alert('Please fill in name and email!');
+                return;
+            }
+            if (!selectedDate || !selectedTime) {
+                alert('Please select date and time!');
+                return;
+            }
+
+            const message = `
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Topic: ${topic || 'Not specified'}
+Date: ${selectedDate}
+Time: ${selectedTime}
+Service: 1-Hour Consultation (₹1,000)
+Company: TECHHARSH Digital Marketing
+            `;
+
+            window.location.href = `mailto:rajputharshvardhan75@gmail.com?subject=New Booking - ${name}&body=${encodeURIComponent(message)}`;
+            
+            document.getElementById('successMsg').classList.add('show');
+            setTimeout(() => resetForm(), 2000);
+        }
+
+        function resetForm() {
+            document.getElementById('fullName').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('topic').value = '';
+            document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+            selectedDate = null;
+            selectedTime = null;
+            document.getElementById('successMsg').classList.remove('show');
+        }
+
+        generateDates();
+    </script>
+</body>
+</html>
